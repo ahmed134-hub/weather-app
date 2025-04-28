@@ -1,0 +1,19 @@
+.content-container{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background-color: rgb(118 149 153 / 53%);
+    width: 80%;
+    height: auto;
+    padding: 20px;
+    border-radius: 30px;
+    margin: 30px auto;
+    overflow: hidden;
+    backdrop-filter: blur(3.5px);
+    transition: all 1s ease-in-out;
+}
+@media (max-width: 480px){
+    .content-container{
+        width: 95%;
+    }
+}
