@@ -12,7 +12,6 @@ const WeatherProvider = ({ children }) => {
     const CURRENT_WEATHER_URL = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput}&units=metric&appid=${API_KEY}`;
     const FORECAST_URL = `https://api.openweathermap.org/data/2.5/forecast?q=${searchInput}&appid=${API_KEY}&units=metric`;
   
-  console.log(weatherData)
 setLoading(true);
 try {
   // Fetch both datasets in parallel
@@ -35,7 +34,6 @@ try {
     current: currentWeatherData,
     forecast: forecastData,
   });
-  console.log(weatherData.current);
   setError(null);
 } catch (err) {
   setError(err.message);
