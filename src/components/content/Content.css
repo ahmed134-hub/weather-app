@@ -10,8 +10,8 @@
     margin: 30px auto;
     overflow: hidden;
     backdrop-filter: blur(3.5px);
-    transition: all 1s ease-in-out;
-}
+    color: #fff
+;}
 @media (max-width: 480px){
     .content-container{
         width: 95%;

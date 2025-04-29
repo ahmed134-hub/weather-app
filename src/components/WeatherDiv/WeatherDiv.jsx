@@ -11,7 +11,23 @@ import { WeatherContext } from "../../context/WeatherContext";
 
 const WeatherDiv = () => {
 
+
 const {weatherData,error,loading} =useContext(WeatherContext)
+const {current,forecast} = weatherData
+console.log(current,forecast)
+console.log(weatherData)
+
+const today = new Date();
+  const formattedDate = today.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+
+
+
 if(error) {
     return <div className="error">Error: {error}</div>;
   }
@@ -21,47 +37,48 @@ if(error) {
   if (!weatherData) {
     return <div className="no-data">No weather data available</div>;
   }
+
   return (
     <div className="weather-container">
-        <h5>{weatherData.location.localtime}</h5>
+        <h5>{formattedDate}</h5>
         <div className="weather-div">
             <div className="weather-div-left">
-                <h3>{weatherData.location.name}</h3>
-                <p>{weatherData.location.country}</p>
+                <h3>{current.name}</h3>
+                <p>{current.sys.country}</p>
             </div>
             <div className="img">
-              <img src={weatherData.current.condition.icon} alt="sasa" />
-              <p>{weatherData.current.condition.text}</p>
+              <img src={`https://openweathermap.org/img/wn/${current.weather[0].icon}@2x.png`} alt="sasa" />
+              <p>{current.weather[0].main}</p>
             </div>
             <div className="weather-div-right">
-                <h3>{weatherData.current.temp_c}°</h3>
-                <p>feels like : {weatherData.current.feelslike_c}°</p>
-                <p>Max : {weatherData.forecast.forecastday[0].day.maxtemp_c}°</p>
-                <p>Min : {weatherData.forecast.forecastday[0].day.mintemp_c}°</p>
+                <h3>{current.main.temp}°</h3>
+                <p>feels like : <span>{current.main.feels_like }</span>°</p>
+                <p>Max : <span>{current.main.temp_max }</span>°</p>
+                <p>Min : <span>{current.main.temp_min}</span>°</p>
             </div>
         </div>
       <div className="other">
         <div className="humidity">
           <RiWaterPercentFill />
-          <p>Humidity:{weatherData.current.humidity}%</p>
+          <p>Humidity : {current.main.humidity}%</p>
         </div>
         <div className="wind">
           <FiWind />
-          <p>Wind:{weatherData.current.wind_mph}</p>
+          <p>Wind : {current.wind.speed} km/h</p>
         </div>
         <div className="pressure">
           <FaCompress />
-          <p>Pressure:{weatherData.current.pressure_in}</p>
+          <p>Pressure : {current.main.pressure} hPa</p>
         </div>
       </div>
       <div className="forecast">
         <div className="forecast-div">
-          {weatherData.forecast.forecastday[0].hour.map((day, index) => (
+          {forecast.list.slice(0,9).map((day, index) => (
             <div key={index} className="forecast-day">
-              <h4>{day.time}</h4>
-              <img src={day.condition.icon} alt="sasa" />
-              <h5>{day.temp_c}°</h5>
-              <p>{day.condition.text}</p>
+              <h4>{day.dt_txt}</h4>
+              <img src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`} alt="sasa" />
+              <h5>{day.main.temp}°</h5>
+              <p>{day.weather[0].main}</p>
             </div>
           ))}
         </div>
