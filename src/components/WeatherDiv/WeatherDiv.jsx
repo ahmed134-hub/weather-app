@@ -14,8 +14,6 @@ const WeatherDiv = () => {
 
 const {weatherData,error,loading} =useContext(WeatherContext)
 const {current,forecast} = weatherData
-console.log(current,forecast)
-console.log(weatherData)
 
 const today = new Date();
   const formattedDate = today.toLocaleDateString("en-US", {
